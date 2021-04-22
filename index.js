@@ -228,19 +228,23 @@ console.log(isEqualNumXandO("zxzoxo"));
 // * isPrime(9) ➞ false
 // * isPrime(10) ➞ false
 
-const isPrime = (number) => {
-    if (number >= 2) {
-        if ((number / 1 === number) && (number % number === 0)) {
-            return true;
-        } else {
+const isPrime = number => {
+    if (number <= 1) {
+        return false;
+    };
+    if (number === 2) {
+        return true;
+    }
+    let sqrt = Math.sqrt(number);
+    for (i = 2; i <= sqrt; i++) {
+        if (number % i === 0) {
             return false;
         };
-    } else {
-        return;
     };
+    return true;
 };  
 
-console.log(isPrime(10));
+console.log(isPrime(9));
 
 // **13. Validate Email.**
 // Create a function that takes a string, checks for valid email address syntax, and then returns either true or false accordingly.
@@ -259,6 +263,43 @@ console.log(isPrime(10));
 // * "j@example.com" is valid while "@example.com" is invalid
 // * e.g. "john.smith@com" is invalid while "john.smith@email.com" is valid
 // * e.g. "john..smith@email.com" and "john.@email.com" and "john@.email.com" are all invalid
+
+const checkIfEmailisValid = (string) => {
+    if (string[0] === "@") {
+        return false;
+    };
+    if (string.includes("@") && string.includes(".")) {
+        for (i = 0; i < string.length; i++) {
+            if (string[i] === "@") {
+                let partStr = ""; // helper string
+                for (j = string.length - (i - 7); j < string.length; j++) {
+                    partStr += string[j];
+                    if ((string[j].includes("."))) {
+                    return true;
+                    };
+                    return false;
+                };
+                // console.log(partStr);
+                // line 273 to 281 works only for the argument of "john.smith@com", because I can't get the start counter of the nested loop in line 275 to work properly --> open for suggestions
+            };
+            if (string[i] === ".") {
+                if (string[i - 1] === "@" || string[i - 1] === ".") {
+                    return false;
+                };
+                if (string[i + 1] === "@" || string[i + 1] === ".") {
+                    return false;
+                };
+            };
+        };
+        if (string[string.length -1] === "." || string[string.length -1] === "@") {
+            return false;
+        };
+        return true;
+    };
+    return false;
+};
+
+console.log(checkIfEmailisValid("john.smith@com"));
 
 // **Good Luck & Enjoy :)**
 
